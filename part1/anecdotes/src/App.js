@@ -24,8 +24,6 @@ const App = () => {
     setVotes(votesArray);
   };
 
-  console.log(votes);
-
   return (
     <div>
       <p>{anecdotes[selected]}</p>

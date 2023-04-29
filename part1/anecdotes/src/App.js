@@ -26,11 +26,19 @@ const App = () => {
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
+      <p>
+        has {votes[selected] === 0 ? "zero" : votes[selected]}{" "}
+        {votes[selected] > 1 ? "votes" : "vote"}
+      </p>
       <button onClick={addVote}>Vote</button>
       <button onClick={() => setSelected(getRandomInt(anecdotes.length))}>
         Next Anecdote
       </button>
+      <h2>Anecdote with most votes</h2>
+      <p>{anecdotes[votes.indexOf(Math.max(...votes))]}</p>
+      <p>has {Math.max(...votes)} votes</p>
     </div>
   );
 };

@@ -54,13 +54,11 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      <ul>
-        {persons.map((p) => (
-          <li key={p.name}>
-            {p.name} : {p.number}
-          </li>
-        ))}
-      </ul>
+      {persons.map((p) => (
+        <p key={p.name}>
+          {p.name}: {p.number}
+        </p>
+      ))}
     </div>
   );
 };

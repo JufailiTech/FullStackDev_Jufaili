@@ -1,16 +1,16 @@
 import { useState } from "react";
 
 const App = () => {
-  const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
+  const [persons, setPersons] = useState([
+    { name: "Arto Hellas", number: "999999999" },
+  ]);
   const [newName, setNewName] = useState("");
+  const [newNumber, setNewNumber] = useState("");
 
   const checkExists = (person, personsArray) => {
     let found = false;
     personsArray.forEach((p) => {
-      if (JSON.stringify(p) === JSON.stringify(person)) {
-        console.log(p, person);
-        found = true;
-      }
+      if (p.name === person.name) found = true;
     });
 
     return found;
@@ -20,21 +20,24 @@ const App = () => {
     e.preventDefault();
     const newPerson = {
       name: newName,
+      number: newNumber,
     };
-
-    console.log(checkExists(newPerson, persons));
 
     if (!checkExists(newPerson, persons)) {
       setPersons(persons.concat(newPerson));
       setNewName("");
+      setNewNumber("");
     } else {
       alert(`${newName} is already added to the phone book!`);
     }
   };
 
   const handleNameChange = (e) => {
-    console.log(e.target.value);
     setNewName(e.target.value);
+  };
+
+  const handleNumberChange = (e) => {
+    setNewNumber(e.target.value);
   };
   return (
     <div>
@@ -44,13 +47,18 @@ const App = () => {
           name: <input value={newName} onChange={handleNameChange} />
         </div>
         <div>
+          number: <input value={newNumber} onChange={handleNumberChange} />
+        </div>
+        <div>
           <button type="submit">Add Name</button>
         </div>
       </form>
       <h2>Numbers</h2>
       <ul>
         {persons.map((p) => (
-          <li key={p.name}>{p.name}</li>
+          <li key={p.name}>
+            {p.name} : {p.number}
+          </li>
         ))}
       </ul>
     </div>

@@ -1,4 +1,7 @@
 import { useState } from "react";
+import Filter from "./components/Filter";
+import PersonForm from "./components/PersonForm";
+import Persons from "./components/Persons";
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -6,6 +9,7 @@ const App = () => {
     { name: "Ada Lovelace", number: "39-44-5323523", id: 2 },
     { name: "Dan Abramov", number: "12-43-234345", id: 3 },
     { name: "Mary Poppendieck", number: "39-23-6423122", id: 4 },
+    { name: "Mahfoodh Al Jufaili", number: "968-99233223", id: 5 },
   ]);
 
   const [newName, setNewName] = useState("");
@@ -53,31 +57,16 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        <label htmlFor="filter">Filter displayed names with </label>
-        <input id="filter" onChange={handleFilteration} type="text" />
-      </div>
-      <form onSubmit={addPerson}>
-        <div>
-          name: <input value={newName} onChange={handleNameChange} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumberChange} />
-        </div>
-        <div>
-          <button type="submit">Add Name</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      {persons
-        .filter((p) =>
-          p.name.toLowerCase().includes(searchString.toLocaleLowerCase())
-        )
-        .map((p) => (
-          <p key={p.id}>
-            {p.name}: {p.number}
-          </p>
-        ))}
+      <Filter handleFilter={handleFilteration} />
+      <PersonForm
+        addPerson={addPerson}
+        newName={newName}
+        handleNameChange={handleNameChange}
+        newNumber={newNumber}
+        handleNumberChange={handleNumberChange}
+      />
+      <h3>Numbers</h3>
+      <Persons persons={persons} searchString={searchString} />
     </div>
   );
 };
